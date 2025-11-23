@@ -1,0 +1,30 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JonasMobile.Views.CategoriaPage"
+             Title="Categorias">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <!--<ActivityIndicator
+                IsVisible="{Binding IsLoading}"
+                IsRunning="{Binding IsLoading}" />-->           
+            <CollectionView ItemsSource="{Binding Categorias}"
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="20" Margin="5" BorderColor="Gray">
+                            <VerticalStackLayout Spacing="10">
+                                <Image Source="{Binding Media}"
+                                       HeightRequest="400"
+                                       WidthRequest="650"
+                                       Aspect="AspectFill" />
+                                <Label Text="{Binding Nombre}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Descripcion}" FontSize="Small"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
