@@ -1,29 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="JonasMobile.Views.CategoriaPage"
-             Title="Categorias">
+             x:Class="JonasMobile.Views.AnimalPage"
+             Title="Animales">
+
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">
             <ActivityIndicator
                 IsVisible="{Binding IsLoading}"
                 IsRunning="{Binding IsLoading}" />
 
-            <CollectionView ItemsSource="{Binding Categorias}"
+            <CollectionView ItemsSource="{Binding Animales}"
                             VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Padding="20" Margin="5" BorderColor="Gray">
                             <VerticalStackLayout Spacing="10">
-                                <Image Source="{Binding Media}"
-                                       HeightRequest="400"
-                                       WidthRequest="650"
-                                       Aspect="AspectFill">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnCategoriaTapped" />
-                                    </Image.GestureRecognizers>
-                                </Image>
-                                <Label Text="{Binding Nombre}" FontAttributes="Bold"/>
+                                <Label Text="{Binding NombreComun}" FontAttributes="Bold" FontSize="Medium"/>
+                                <Label Text="{Binding NombreCientifico}" FontSize="Small" TextColor="Gray"/>
                                 <Label Text="{Binding Descripcion}" FontSize="Small"/>
+                                <Label Text="{Binding Habitat}" FontSize="Small"/>
+                                <Label Text="{Binding Alimentacion}" FontSize="Small"/>
+                                <Label Text="{Binding Tipo}" FontSize="Small"/>
+                                <Label Text="{Binding Tamano}" FontSize="Small"/>
+                                <Label Text="{Binding PesoPromedio}" FontSize="Small"/>
+                                <Label Text="{Binding EstadoConservacion}" FontSize="Small"/>
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>

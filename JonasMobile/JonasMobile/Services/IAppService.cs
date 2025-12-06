@@ -10,5 +10,6 @@ namespace JonasMobile.Services
     public interface IAppService
     {
         Task<List<Categoria>> GetAllCategoriasAsync();
+        Task<List<Animal>> GetAllAnimalesByCategoriaAsync(int categoriaId);
     }
 }

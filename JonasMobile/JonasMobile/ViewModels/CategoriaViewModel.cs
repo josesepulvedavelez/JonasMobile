@@ -2,11 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using JonasMobile.Models;
 using JonasMobile.Services;
-using System;
-using System.Collections.Generic;
+using JonasMobile.Views;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JonasMobile.ViewModels
@@ -14,9 +11,10 @@ namespace JonasMobile.ViewModels
     public partial class CategoriaViewModel : ObservableObject
     {
         private readonly IAppService _appService;
+        public IAppService AppService => _appService;
 
         [ObservableProperty]
-        public bool isLoading;
+        private bool isLoading;
 
         public ObservableCollection<Categoria> Categorias { get; } = new ObservableCollection<Categoria>();
 
@@ -29,22 +27,30 @@ namespace JonasMobile.ViewModels
         public async Task LoadCategoriasAsync()
         {
             if (IsLoading) return;
-
             try
             {
                 IsLoading = true;
                 Categorias.Clear();
-
                 var items = await _appService.GetAllCategoriasAsync();
-
                 foreach (var item in items)
-                    Categorias.Add(item);
+                    Categorias.Add(item);                
             }
-
             finally
             {
                 IsLoading = false;
             }
+        }
+
+        [RelayCommand]
+        public async Task CategoriaSelected(Categoria categoria)
+        {
+            var animalViewModel = new AnimalViewModel(_appService)
+            {
+                CategoriaId = categoria.CategoriaId
+            };
+
+            var animalPage = new AnimalPage(animalViewModel);
+            await Shell.Current.Navigation.PushAsync(animalPage);
         }
 
     }

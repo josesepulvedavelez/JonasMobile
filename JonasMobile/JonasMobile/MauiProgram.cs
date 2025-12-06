@@ -21,6 +21,8 @@ namespace JonasMobile
             builder.Services.AddSingleton<IAppService, AppService>();            
             builder.Services.AddTransient<CategoriaViewModel>();            
             builder.Services.AddTransient<CategoriaPage>();
+            builder.Services.AddTransient<AnimalViewModel>();
+            builder.Services.AddTransient<AnimalPage>();
 
             return builder.Build();
         }
