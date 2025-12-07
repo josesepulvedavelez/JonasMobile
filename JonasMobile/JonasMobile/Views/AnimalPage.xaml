@@ -16,6 +16,18 @@
                     <DataTemplate>
                         <Frame Padding="20" Margin="5" BorderColor="Gray">
                             <VerticalStackLayout Spacing="10">
+                                
+                                <CarouselView ItemsSource="{Binding Medias}"
+                                              HeightRequest="500"
+                                              Loop="True">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Url}"
+                                                   Aspect="AspectFit"/>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                
                                 <Label Text="{Binding NombreComun}" FontAttributes="Bold" FontSize="Medium"/>
                                 <Label Text="{Binding NombreCientifico}" FontSize="Small" TextColor="Gray"/>
                                 <Label Text="{Binding Descripcion}" FontSize="Small"/>
@@ -24,7 +36,7 @@
                                 <Label Text="{Binding Tipo}" FontSize="Small"/>
                                 <Label Text="{Binding Tamano}" FontSize="Small"/>
                                 <Label Text="{Binding PesoPromedio}" FontSize="Small"/>
-                                <Label Text="{Binding EstadoConservacion}" FontSize="Small"/>
+                                <Label Text="{Binding EstadoConservacion}" FontSize="Small"/>                                
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>

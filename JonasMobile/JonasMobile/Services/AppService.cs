@@ -23,11 +23,9 @@ namespace JonasMobile.Services
 
         private async void InitializeDatabase()
         {
-            //await _database.DropTableAsync<Categoria>();
-            //await _database.DropTableAsync<Animal>();
-
             //await _database.DeleteAllAsync<Categoria>();
             //await _database.DeleteAllAsync<Animal>();
+            //await _database.DeleteAllAsync<Media>();
 
             await _database.CreateTableAsync<Categoria>();
             await _database.CreateTableAsync<Animal>();
@@ -35,16 +33,20 @@ namespace JonasMobile.Services
 
             int countCategorias = await _database.Table<Categoria>().CountAsync();
             int countAnimales = await _database.Table<Animal>().CountAsync();
+            int countMedias = await _database.Table<Media>().CountAsync();
 
             if (countCategorias == 0)
                 await InsertCategoriasAsync();
 
             if (countAnimales == 0)
                 await InsertAnimalesAsync();
+
+            if (countMedias == 0)
                 await InsertMediaAsync();
 
             //var categorias = await _database.Table<Categoria>().CountAsync();
             //var animales = await _database.Table<Animal>().CountAsync();
+            //var medias = await _database.Table<Media>().CountAsync();
         }
 
         public Task<List<Categoria>> GetAllCategoriasAsync()
@@ -73,7 +75,6 @@ namespace JonasMobile.Services
 
             return animales;
         }
-
 
         public Task<List<Media>> GetAllMediasByAnimalAsync(int animalId)
         {
@@ -1140,7 +1141,11 @@ namespace JonasMobile.Services
             var medias = new List<Media>
             {
                 new Media { MediaId = 1, Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Eilat_-_Dolphin_reef.jpg/640px-Eilat_-_Dolphin_reef.jpg", Type = "image", AnimalId = 1 },
-                new Media { MediaId = 2, Url = "https://www.youtube.com/shorts/6sXJbCntGGQ", Type = "image", AnimalId = 1 }
+                new Media { MediaId = 2, Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Secret_Garden_Dolphin_Playing_With_Ball.jpg/640px-Secret_Garden_Dolphin_Playing_With_Ball.jpg", Type = "image", AnimalId = 1 },
+                new Media { MediaId = 3, Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Eilat_-_Dolphin_reef.jpg/640px-Eilat_-_Dolphin_reef.jpg", Type = "image", AnimalId = 1 },
+                new Media { MediaId = 4, Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/PacificWhiteSidedDolphine.jpg/640px-PacificWhiteSidedDolphine.jpg", Type = "image", AnimalId = 1 },
+                new Media { MediaId = 5, Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Dolphin_with_malformed_upper_lip%2C_Portugal_2022.jpg/640px-Dolphin_with_malformed_upper_lip%2C_Portugal_2022.jpg", Type = "image", AnimalId = 1 },
+
             };
 
             await _database.InsertAllAsync(medias);
