@@ -31,6 +31,7 @@ namespace JonasMobile.Services
 
             await _database.CreateTableAsync<Categoria>();
             await _database.CreateTableAsync<Animal>();
+            await _database.CreateTableAsync<Media>();
 
             int countCategorias = await _database.Table<Categoria>().CountAsync();
             int countAnimales = await _database.Table<Animal>().CountAsync();
@@ -40,6 +41,7 @@ namespace JonasMobile.Services
 
             if (countAnimales == 0)
                 await InsertAnimalesAsync();
+                await InsertMediaAsync();
 
             //var categorias = await _database.Table<Categoria>().CountAsync();
             //var animales = await _database.Table<Animal>().CountAsync();
@@ -50,10 +52,33 @@ namespace JonasMobile.Services
             return _database.Table<Categoria>().ToListAsync();
         }
 
-        public Task<List<Animal>> GetAllAnimalesByCategoriaAsync(int categoriaId)
+        public async Task<List<Animal>> GetAllAnimalesByCategoriaAsync(int categoriaId)
         {
-            return _database.Table<Animal>()
-                             .Where(a => a.CategoriaId == categoriaId)
+            var animales = await _database.Table<Animal>()
+                .Where(a => a.CategoriaId == categoriaId)
+                .ToListAsync();
+
+            var animalIds = animales.Select(a => a.AnimalId).ToList();
+
+            var medias = await _database.Table<Media>()
+                .Where(m => animalIds.Contains(m.AnimalId))
+                .ToListAsync();
+                       
+            foreach (var animal in animales)
+            {
+                animal.Medias = medias
+                    .Where(m => m.AnimalId == animal.AnimalId)
+                    .ToList();
+            }
+
+            return animales;
+        }
+
+
+        public Task<List<Media>> GetAllMediasByAnimalAsync(int animalId)
+        {
+            return _database.Table<Media>()
+                             .Where(m => m.AnimalId == animalId)
                              .ToListAsync();
         }
 
@@ -1110,5 +1135,17 @@ namespace JonasMobile.Services
             await _database.InsertAllAsync(animalesIniciales);
         }
 
+        public async Task InsertMediaAsync()
+        {
+            var medias = new List<Media>
+            {
+                new Media { MediaId = 1, Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Eilat_-_Dolphin_reef.jpg/640px-Eilat_-_Dolphin_reef.jpg", Type = "image", AnimalId = 1 },
+                new Media { MediaId = 2, Url = "https://www.youtube.com/shorts/6sXJbCntGGQ", Type = "image", AnimalId = 1 }
+            };
+
+            await _database.InsertAllAsync(medias);
+        }
+
+       
     }
 }

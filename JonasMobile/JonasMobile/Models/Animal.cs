@@ -30,6 +30,9 @@ namespace JonasMobile.Models
         public decimal PesoPromedio { get; set; }
 
         public string EstadoConservacion { get; set; } = string.Empty;
+        
+        [Ignore]
+        public List<Media> Medias { get; set; } = new List<Media>();
 
         public int CategoriaId { get; set; }
     }

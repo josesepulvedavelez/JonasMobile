@@ -11,5 +11,6 @@ namespace JonasMobile.Services
     {
         Task<List<Categoria>> GetAllCategoriasAsync();
         Task<List<Animal>> GetAllAnimalesByCategoriaAsync(int categoriaId);
+        Task<List<Media>> GetAllMediasByAnimalAsync(int animalId);
     }
 }
