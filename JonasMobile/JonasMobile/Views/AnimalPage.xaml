@@ -23,7 +23,8 @@
                                     <CarouselView.ItemTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Url}"
-                                                   Aspect="AspectFit"/>
+                                                   Aspect="AspectFit"
+                                                   IsAnimationPlaying="True" />
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
                                 </CarouselView>

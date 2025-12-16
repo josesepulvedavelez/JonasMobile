@@ -35,5 +35,6 @@ namespace JonasMobile.Models
         public List<Media> Medias { get; set; } = new List<Media>();
 
         public int CategoriaId { get; set; }
+        public int Estado { get; set; }
     }
 }

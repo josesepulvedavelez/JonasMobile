@@ -14,5 +14,6 @@ namespace JonasMobile.Models
         public string Nombre { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
         public string Media { get; set; } = string.Empty;
+        public int Estado { get; set; }
     }
 }
