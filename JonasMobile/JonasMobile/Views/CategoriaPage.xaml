@@ -1,34 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JonasMobile.Views.CategoriaPage"
              Title="Categorias">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#87CEEB" Offset="0.0" />
+            <GradientStop Color="#4A90E2" Offset="0.3" />
+            <GradientStop Color="#1E90FF" Offset="0.6" />
+            <GradientStop Color="#006994" Offset="0.85" />
+            <GradientStop Color="#F4A460" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Padding="15" Spacing="15">
+
+            <!-- Indicador de carga mejorado -->
             <ActivityIndicator
                 IsVisible="{Binding IsLoading}"
-                IsRunning="{Binding IsLoading}" />
+                IsRunning="{Binding IsLoading}"
+                Color="#FFD700"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HeightRequest="60"
+                WidthRequest="60"
+                Margin="0,20,0,20" />
 
+            <!-- Coleccion de categorias -->
             <CollectionView ItemsSource="{Binding Categorias}"
-                            VerticalScrollBarVisibility="Always">
+                            VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Padding="20" Margin="5" BorderColor="Gray">
-                            <VerticalStackLayout Spacing="10">
-                                <Image Source="{Binding Media}"
-                                       HeightRequest="400"
-                                       WidthRequest="650"
-                                       Aspect="AspectFill">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnCategoriaTapped" />
-                                    </Image.GestureRecognizers>
-                                </Image>
-                                <Label Text="{Binding Nombre}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Descripcion}" FontSize="Small"/>
-                            </VerticalStackLayout>
+                        <!-- Tarjeta principal con sombra -->
+                        <Frame Padding="0"
+                               Margin="10,8"
+                               BorderColor="Transparent"
+                               BackgroundColor="White"
+                               CornerRadius="25"
+                               HasShadow="True">
+
+                            <Grid RowDefinitions="Auto,Auto,Auto"
+                                  Padding="0">
+
+                                <!-- Contenedor de imagen con bordes redondeados -->
+                                <Border Grid.Row="0"
+                                        StrokeThickness="0"
+                                        BackgroundColor="Transparent">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="25,25,0,0"/>
+                                    </Border.StrokeShape>
+                                    <Image Source="{Binding Media}"
+                                           HeightRequest="500"
+                                           Aspect="AspectFill">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnCategoriaTapped"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </Border>
+
+                                <!-- Contenedor del texto con fondo degradado suave -->
+                                <Grid Grid.Row="1" Grid.RowSpan="2"
+                                      Padding="0">
+                                    <Grid.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="White" Offset="0.0" />
+                                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+
+                                    <VerticalStackLayout Spacing="5" Padding="15,15,15,20">
+                                        <!-- Nombre de la categoria -->
+                                        <Label Text="{Binding Nombre}"
+                                               FontAttributes="Bold"
+                                               FontSize="22"
+                                               TextColor="#1E3A8A"
+                                               HorizontalOptions="Center"
+                                               HorizontalTextAlignment="Center"/>
+
+                                        <!-- Descripcion -->
+                                        <Label Text="{Binding Descripcion}"
+                                               FontSize="14"
+                                               TextColor="#4A90E2"
+                                               HorizontalTextAlignment="Center"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="3"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

@@ -4,45 +4,248 @@
              x:Class="JonasMobile.Views.AnimalPage"
              Title="Animales">
 
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#87CEEB" Offset="0.0" />
+            <GradientStop Color="#4A90E2" Offset="0.3" />
+            <GradientStop Color="#1E90FF" Offset="0.6" />
+            <GradientStop Color="#006994" Offset="0.85" />
+            <GradientStop Color="#F4A460" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Padding="15" Spacing="15">
+
+            <!-- Indicador de carga mejorado -->
             <ActivityIndicator
                 IsVisible="{Binding IsLoading}"
-                IsRunning="{Binding IsLoading}" />
+                IsRunning="{Binding IsLoading}"
+                Color="#FFD700"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HeightRequest="60"
+                WidthRequest="60"
+                Margin="0,20,0,20" />
 
+            <!-- Coleccion de animales -->
             <CollectionView ItemsSource="{Binding Animales}"
-                            VerticalScrollBarVisibility="Always">
+                            VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Padding="20" Margin="5" BorderColor="Gray">
-                            <VerticalStackLayout Spacing="10">
-                                
-                                <CarouselView ItemsSource="{Binding Medias}"
-                                              HeightRequest="500"
-                                              Loop="True">
-                                    <CarouselView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Url}"
-                                                   Aspect="AspectFit"
-                                                   IsAnimationPlaying="True" />
-                                        </DataTemplate>
-                                    </CarouselView.ItemTemplate>
-                                </CarouselView>
-                                
-                                <Label Text="{Binding NombreComun}" FontAttributes="Bold" FontSize="Medium"/>
-                                <Label Text="{Binding NombreCientifico}" FontSize="Small" TextColor="Gray"/>
-                                <Label Text="{Binding Descripcion}" FontSize="Small"/>
-                                <Label Text="{Binding Habitat}" FontSize="Small"/>
-                                <Label Text="{Binding Alimentacion}" FontSize="Small"/>
-                                <Label Text="{Binding Tipo}" FontSize="Small"/>
-                                <Label Text="{Binding Tamano}" FontSize="Small"/>
-                                <Label Text="{Binding PesoPromedio}" FontSize="Small"/>
-                                <Label Text="{Binding EstadoConservacion}" FontSize="Small"/>                                
+                        <!-- Tarjeta principal con sombra -->
+                        <Frame Padding="0" 
+                               Margin="10,8"
+                               BorderColor="Transparent"
+                               BackgroundColor="White"
+                               CornerRadius="25"
+                               HasShadow="True">
+
+                            <VerticalStackLayout Spacing="0">
+
+                                <!-- Carrusel de imagenes -->
+                                <Border StrokeThickness="0"
+                                        BackgroundColor="Transparent">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="25,25,0,0"/>
+                                    </Border.StrokeShape>
+                                    <CarouselView ItemsSource="{Binding Medias}"
+                                                  HeightRequest="500"
+                                                  Loop="True"
+                                                  IndicatorView="indicatorView">    
+
+                                        <CarouselView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid HeightRequest="500">
+                                                    <Image Source="{Binding Url}"
+                                                           Aspect="AspectFill"
+                                                           IsAnimationPlaying="True"
+                                                           HorizontalOptions="Fill"
+                                                           VerticalOptions="Fill"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CarouselView.ItemTemplate>
+
+                                    </CarouselView>
+                                </Border>
+
+                                <!-- Indicadores del carrusel -->
+                                <IndicatorView x:Name="indicatorView"
+                                               IndicatorColor="LightGray"
+                                               SelectedIndicatorColor="#1E3A8A"
+                                               HorizontalOptions="Center"
+                                               Margin="0,10,0,0"/>
+
+                                <!-- Contenedor del contenido con fondo degradado -->
+                                <Grid Padding="0">
+                                    <Grid.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="White" Offset="0.0" />
+                                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+
+                                    <VerticalStackLayout Spacing="12" Padding="20,15,20,25">
+
+                                        <!-- Nombre comun -->
+                                        <Label Text="{Binding NombreComun}" 
+                                               FontAttributes="Bold" 
+                                               FontSize="24"
+                                               TextColor="#1E3A8A"
+                                               HorizontalTextAlignment="Center"/>
+
+                                        <!-- Nombre cientifico -->
+                                        <Label Text="{Binding NombreCientifico}" 
+                                               FontSize="16" 
+                                               TextColor="#4A90E2"
+                                               FontAttributes="Italic"
+                                               HorizontalTextAlignment="Center"
+                                               Margin="0,0,0,10"/>
+
+                                        <!-- Descripcion destacada -->
+                                        <Frame Padding="15" 
+                                               BackgroundColor="#E8F4F8"
+                                               BorderColor="Transparent"
+                                               CornerRadius="15"
+                                               HasShadow="False">
+                                            <Label Text="{Binding Descripcion}" 
+                                                   FontSize="14"
+                                                   TextColor="#2C3E50"
+                                                   LineBreakMode="WordWrap"/>
+                                        </Frame>
+
+                                        <!-- Informacion en tarjetas pequenas -->
+                                        <Grid ColumnDefinitions="*,*" 
+                                              RowDefinitions="Auto,Auto,Auto"
+                                              ColumnSpacing="10"
+                                              RowSpacing="10">
+
+                                            <!-- Habitat -->
+                                            <Frame Grid.Row="0" Grid.Column="0"
+                                                   Padding="12"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#1E90FF"
+                                                   CornerRadius="12"
+                                                   HasShadow="False">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label Text="🏝️ Habitat" 
+                                                           FontSize="12" 
+                                                           FontAttributes="Bold"
+                                                           TextColor="#1E3A8A"/>
+                                                    <Label Text="{Binding Habitat}" 
+                                                           FontSize="12"
+                                                           TextColor="#4A90E2"
+                                                           LineBreakMode="WordWrap"/>
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Alimentacion -->
+                                            <Frame Grid.Row="0" Grid.Column="1"
+                                                   Padding="12"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#1E90FF"
+                                                   CornerRadius="12"
+                                                   HasShadow="False">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label Text="🍴 Alimentacion" 
+                                                           FontSize="12" 
+                                                           FontAttributes="Bold"
+                                                           TextColor="#1E3A8A"/>
+                                                    <Label Text="{Binding Alimentacion}" 
+                                                           FontSize="12"
+                                                           TextColor="#4A90E2"
+                                                           LineBreakMode="WordWrap"/>
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Tipo -->
+                                            <Frame Grid.Row="1" Grid.Column="0"
+                                                   Padding="12"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#1E90FF"
+                                                   CornerRadius="12"
+                                                   HasShadow="False">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label Text="📋 Tipo" 
+                                                           FontSize="12" 
+                                                           FontAttributes="Bold"
+                                                           TextColor="#1E3A8A"/>
+                                                    <Label Text="{Binding Tipo}" 
+                                                           FontSize="12"
+                                                           TextColor="#4A90E2"
+                                                           LineBreakMode="WordWrap"/>
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Tamano -->
+                                            <Frame Grid.Row="1" Grid.Column="1"
+                                                   Padding="12"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#1E90FF"
+                                                   CornerRadius="12"
+                                                   HasShadow="False">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label Text="📏 Tamano" 
+                                                           FontSize="12" 
+                                                           FontAttributes="Bold"
+                                                           TextColor="#1E3A8A"/>
+                                                    <Label Text="{Binding Tamano}" 
+                                                           FontSize="12"
+                                                           TextColor="#4A90E2"
+                                                           LineBreakMode="WordWrap"/>
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Peso -->
+                                            <Frame Grid.Row="2" Grid.Column="0"
+                                                   Padding="12"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#1E90FF"
+                                                   CornerRadius="12"
+                                                   HasShadow="False">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label Text="⚖️ Peso" 
+                                                           FontSize="12" 
+                                                           FontAttributes="Bold"
+                                                           TextColor="#1E3A8A"/>
+                                                    <Label Text="{Binding PesoPromedio}" 
+                                                           FontSize="12"
+                                                           TextColor="#4A90E2"
+                                                           LineBreakMode="WordWrap"/>
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Estado de conservacion -->
+                                            <Frame Grid.Row="2" Grid.Column="1"
+                                                   Padding="12"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#1E90FF"
+                                                   CornerRadius="12"
+                                                   HasShadow="False">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label Text="🌍 Conservacion" 
+                                                           FontSize="12" 
+                                                           FontAttributes="Bold"
+                                                           TextColor="#1E3A8A"/>
+                                                    <Label Text="{Binding EstadoConservacion}" 
+                                                           FontSize="12"
+                                                           TextColor="#4A90E2"
+                                                           LineBreakMode="WordWrap"/>
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                        </Grid>
+
+                                    </VerticalStackLayout>
+                                </Grid>
+
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>
