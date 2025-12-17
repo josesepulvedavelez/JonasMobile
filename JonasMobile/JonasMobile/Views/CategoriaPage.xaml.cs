@@ -34,27 +34,6 @@ public partial class CategoriaPage : ContentPage
         }
     }
 
-    //private async void OnPlayAudioClicked(object sender, EventArgs e)
-    //{
-    //    if (sender is Button button && button.BindingContext is Categoria categoria)
-    //    {
-    //        var texto = $"{categoria.Nombre}. {categoria.Descripcion}";
-                        
-    //        var locales = await TextToSpeech.Default.GetLocalesAsync();
-    //        var localeEs = locales.FirstOrDefault(l => l.Language.StartsWith("es", StringComparison.OrdinalIgnoreCase))
-    //                        ?? locales.FirstOrDefault();
-
-    //        await TextToSpeech.Default.SpeakAsync(
-    //            texto,
-    //            new SpeechOptions
-    //            {
-    //                Locale = localeEs,
-    //                Pitch = 1.0f,
-    //                Volume = 1.0f
-    //            });
-    //    }
-    //}
-
     private async void OnPlayAudioTapped(object sender, TappedEventArgs e)
     {
         if (sender is Image image && image.BindingContext is Categoria categoria)

@@ -88,8 +88,8 @@
                                                MaxLines="3"/>
                                         
                                         <Image Source="audio.png"
-                                               HeightRequest="40"
-                                               WidthRequest="40"
+                                               HeightRequest="50"
+                                               WidthRequest="50"
                                                HorizontalOptions="Center">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer Tapped="OnPlayAudioTapped"/>
